@@ -1,0 +1,16 @@
+@import "./config/variables";
+
+@import "./mixins/breakpoints";
+
+@import "./base/body";
+@import "./base/normalize";
+@import "./base/resetList";
+@import "./base/button";
+@import "./base/loading";
+
+@import "./blocks/navbar";
+@import "./blocks/main";
+@import "./blocks/contact";
+@import "./blocks/error";
+@import "./blocks/about";
+@import "./blocks/footer";

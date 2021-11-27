@@ -1,0 +1,59 @@
+.about {
+  &__section {
+    min-height: calc(100vh - 186.63px);
+    padding: 1rem 0.75rem;
+    display: grid;
+    place-items: center;
+
+    div {
+      max-width: 1240px;
+    }
+
+    &__title {
+      text-transform: capitalize;
+      color: $darkGreen;
+      text-align: center;
+      margin: 0;
+      letter-spacing: 0.045rem;
+      font-size: 1.35rem;
+    }
+
+    &__text {
+      letter-spacing: 0.1rem;
+      color: $darkBlue;
+      line-height: 1.5;
+      font-weight: $mainFontBold;
+      font-size: 1.05rem;
+      padding: 0 0.75rem 0 0.75rem;
+    }
+  }
+
+  @include tablet {
+    &__section {
+      padding: 0.5rem 1.5rem;
+      min-height: calc(100vh - 185px);
+
+      &__title {
+        font-size: 1.8rem;
+      }
+
+      &__text {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  @include desktop {
+    &__section {
+      padding: 0.5rem 2rem;
+      min-height: calc(100vh - 209px);
+      &__title {
+        font-size: 2.4rem;
+      }
+
+      &__text {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

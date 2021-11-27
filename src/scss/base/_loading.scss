@@ -1,0 +1,16 @@
+.loading {
+  height: 85vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  svg {
+    color: $darkBlue;
+    font-size: 7.5rem;
+    animation: loading 0.8s infinite linear;
+    @keyframes loading {
+      0% {
+        transform: rotate(-360deg);
+      }
+    }
+  }
+}
