@@ -3,15 +3,13 @@ import { useGlobalContext } from "../context";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { nanoid } from "nanoid";
 
-const ComboBox = ({ items, holder, nameValue }) => {
+const ComboBox = ({ items, holder, nameValue, cbRef }) => {
   const { height, setHeight, setSelectedCareer, setSelectedNumSubjects } =
     useGlobalContext();
 
   const [showBox, setShowBox] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [filterOptions, setFilterOptions] = useState("");
-
-  const cbRef = useRef();
   const searchBox = useRef();
 
   const selectOption = (option, value) => {
@@ -37,7 +35,7 @@ const ComboBox = ({ items, holder, nameValue }) => {
     const handleResize = (myRef) => setHeight(myRef.current.offsetHeight);
 
     cbRef.current.addEventListener("resize", handleResize(cbRef));
-  }, [setHeight]);
+  }, [setHeight, cbRef]);
 
   return (
     <article className="main__form__box">

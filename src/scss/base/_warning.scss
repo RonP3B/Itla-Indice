@@ -1,0 +1,51 @@
+.warning {
+  display: grid;
+  grid-auto-flow: column;
+  padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+  align-items: center;
+  min-height: 40px;
+  min-width: 160px;
+  max-width: 250px;
+  border: 1px solid $darkBlue;
+  background-color: #09a1d4;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-weight: 600;
+  position: absolute;
+  transition: opacity 0.8s ease-in-out;
+  opacity: 0;
+  z-index: 3;
+
+  &::after {
+    display: block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    background-color: #09a1d4;
+    transform: skewY(20deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: -7.5px;
+    right: 135px;
+  }
+
+  p {
+    margin: 0.25rem 0 0 0.35rem;
+    font-size: 0.875rem;
+    color: $darkGreen;
+  }
+
+  p::first-letter {
+    text-transform: uppercase;
+  }
+
+  svg {
+    color: #026aaf;
+    font-size: 1.2rem;
+    z-index: 2;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+}

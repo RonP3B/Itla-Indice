@@ -24,57 +24,6 @@
     min-height: 15rem;
     justify-content: center;
 
-    &__error {
-      display: flex;
-      padding: 0.2rem 0.4rem 0.2rem 0.4rem;
-      align-items: center;
-      width: max-content;
-      min-height: 40px;
-      max-width: 250px;
-      max-height: 100px;
-      border: 1px solid $darkBlue;
-      background-color: #09a1d4;
-      border-radius: 7px;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      font-weight: 600;
-      position: absolute;
-      transition-property: opacity, z-index;
-      transition-duration: 0.8s;
-      transition-timing-function: ease-in-out;
-      opacity: 0;
-      z-index: -2;
-
-      &::after {
-        display: block;
-        content: "";
-        width: 15px;
-        height: 15px;
-        background-color: #09a1d4;
-        transform: skewY(20deg);
-        transform: rotate(45deg);
-        position: relative;
-        top: -16.5px;
-        right: 155px;
-      }
-
-      p {
-        margin: 0.25rem 0 0 0.35rem;
-        font-size: 0.875rem;
-        color: $darkGreen;
-      }
-
-      svg {
-        color: #026aaf;
-        font-size: 1.2rem;
-        z-index: 2;
-      }
-    }
-
-    &__error.active {
-      opacity: 1;
-      z-index: 2;
-    }
-
     &__label {
       color: $darkGreen;
       font-weight: 600;
@@ -199,7 +148,7 @@
         position: absolute;
         border-radius: 5px 5px 0 0;
         border: $darkBlue solid 1px;
-        z-index: 10;
+        z-index: 2;
         opacity: 0;
         pointer-events: none;
         transition: all 0.25s;

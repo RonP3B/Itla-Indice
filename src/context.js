@@ -11,14 +11,20 @@ const AppProvider = ({ children }) => {
   const [selectedCareer, setSelectedCareer] = useState("");
   const [selectedNumSubjects, setSelectedNumSubjects] = useState(0);
   const [formErrMsg, setFormErrMsg] = useState("");
-  const [showFormErrMsg, setShowFormErrMsg] = useState(false);
+  const [showWarningMain, setShowWarningMain] = useState(false);
+  const [showWarningContact, setShowWarningContact] = useState(false);
   const { data, loading } = useFetch(apiItla + careers);
   const [height, setHeight] = useState(0);
-  const [elementPosition, setElementPosition] = useState("");
-
-  const getWidth = () => setWidth(window.innerWidth);
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  const [warningMain, setWarningMain] = useState({
+    top: -500,
+    left: 0,
+    message: "",
+  });
+  const [warningContact, setWarningContact] = useState({
+    top: -500,
+    left: 0,
+    message: "",
+  });
 
   const careersList = data.map((item) => item.career);
   const careersPath = data.map((path) => path.path);
@@ -29,6 +35,55 @@ const AppProvider = ({ children }) => {
       window.removeEventListener("resize", getWidth);
     };
   }, []);
+
+  useEffect(() => {
+    const close = setTimeout(() => {
+      setShowWarningMain(false);
+      setShowWarningContact(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(close);
+    };
+  }, [showWarningMain, showWarningContact]);
+
+  useEffect(() => {
+    const hide = setTimeout(() => {
+      setWarningContact({ ...warningContact, top: -500, left: 0, message: "" });
+      setWarningMain({ ...warningMain, top: -500, left: 0, message: "" });
+    }, 3500);
+
+    return () => {
+      clearTimeout(hide);
+    };
+  }, [warningContact, warningMain]);
+
+  const getWidth = () => setWidth(window.innerWidth);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const showWarning = (position, page) => {
+    const { top, left, message } = position;
+
+    if (page === 0) {
+      setWarningMain({
+        ...warningMain,
+        top,
+        left,
+        message,
+      });
+      setShowWarningMain(true);
+    }
+    if (page === 1) {
+      setWarningContact({
+        ...warningContact,
+        top,
+        left,
+        message,
+      });
+      setShowWarningContact(true);
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -45,14 +100,15 @@ const AppProvider = ({ children }) => {
         selectedNumSubjects,
         formErrMsg,
         setFormErrMsg,
-        showFormErrMsg,
-        setShowFormErrMsg,
         careersList,
         careersPath,
         height,
         setHeight,
-        elementPosition,
-        setElementPosition,
+        warningContact,
+        warningMain,
+        showWarning,
+        showWarningMain,
+        showWarningContact,
       }}
     >
       {children}

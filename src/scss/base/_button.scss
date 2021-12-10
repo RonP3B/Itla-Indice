@@ -14,6 +14,7 @@ button {
   cursor: pointer;
   transition: transform 0.1s linear;
   max-width: 210px;
+  letter-spacing: 0.05rem;
 
   &:active {
     transform: scale(0.97);

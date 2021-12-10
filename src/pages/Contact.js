@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useGlobalContext } from "../context";
 import { ImWarning } from "react-icons/im";
+import { validateEmail, setType, warningInfo } from "../files/functions";
 
 const Contact = () => {
-  const { formErrMsg } = useGlobalContext();
+  const { showWarningContact, warningContact, showWarning } =
+    useGlobalContext();
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const subjectRef = useRef();
+  const messageRef = useRef();
+
+  const handleSubmit = (e) => {
+    if (nameRef.current.value === "") setType("NAME", nameRef);
+    else if (nameRef.current.value.length < 3) setType("NAME_LENGTH", nameRef);
+    else if (emailRef.current.value === "") setType("EMAIL", emailRef);
+    else if (!validateEmail(emailRef.current.value))
+      setType("INVALID_EMAIL", emailRef);
+    else if (subjectRef.current.value === "") setType("SUBJECT", subjectRef);
+    else if (messageRef.current.value === "") setType("MESSAGE", messageRef);
+    else return;
+
+    e.preventDefault();
+    showWarning(warningInfo, 1);
+  };
 
   return (
     <main className="contact">
@@ -18,15 +39,32 @@ const Contact = () => {
           method="POST"
           autoComplete="off"
           className="contact__form"
+          onSubmit={(e) => handleSubmit(e)}
         >
-          <div className="main__form__error">
+          <div
+            className={`warning ${showWarningContact ? "active" : ""}`}
+            style={{
+              top: `${warningContact.top}px`,
+              left: `${warningContact.left}px`,
+            }}
+          >
             <ImWarning />
-            <p>{formErrMsg || "Completa este campo"}</p>
+            <p>{warningContact.message || "completa este campo"}</p>
           </div>
           <div className="contact__form__user-info">
-            <input type="text" name="name" placeholder="nombre" />
-            <input type="email" name="email" placeholder="correo electronico" />
-            <input type="text" name="subject" placeholder="asunto" />
+            <input type="text" name="name" placeholder="nombre" ref={nameRef} />
+            <input
+              type="text"
+              name="email"
+              placeholder="correo electronico"
+              ref={emailRef}
+            />
+            <input
+              type="text"
+              name="subject"
+              placeholder="asunto"
+              ref={subjectRef}
+            />
             <input
               type="hidden"
               name="_next"
@@ -37,6 +75,7 @@ const Contact = () => {
           <textarea
             name="message"
             placeholder="escribe tu mensaje aquí"
+            ref={messageRef}
           ></textarea>
           <button type="submit">enviar</button>
         </form>
