@@ -1,18 +1,16 @@
+//----------------------------Imports----------------------------
 import React, { createRef } from "react";
-import { useHistory } from "react-router-dom";
-import ComboBox from "../components/ComboBox";
+import ComboBox from "./ComboBox";
+import Warning from "./Warning";
 import { useGlobalContext } from "../context";
-import { ImWarning } from "react-icons/im";
 import { getWarningInfo } from "../files/functions";
 import { numbersList } from "../files/data";
 
+//----------------------------Component----------------------------
 const CareersForm = () => {
-  const history = useHistory();
-  const careerRef = createRef();
-  const classesRef = createRef();
+  //----------------------------Hooks----------------------------
   const {
-    careersList,
-    careersPath,
+    dataCareers,
     selectedNumSubjects,
     selectedCareer,
     setSelectedCareer,
@@ -20,8 +18,18 @@ const CareersForm = () => {
     showWarningMain,
     warningMain,
     showWarning,
+    setCareers,
+    history,
   } = useGlobalContext();
 
+  const careerRef = createRef();
+  const classesRef = createRef();
+
+  //----------------------------Data----------------------------
+  const careersList = dataCareers.map((item) => item.career);
+  const careersPath = dataCareers.map((path) => path.path);
+
+  //----------------------------Functions----------------------------
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -33,39 +41,32 @@ const CareersForm = () => {
         0
       );
     } else {
+      setCareers(selectedCareer);
       history.push("/calc");
-      setSelectedCareer("");
-      setSelectedNumSubjects(0);
     }
   };
 
+  //----------------------------Rendering return----------------------------
   return (
     <form className="main__form" onSubmit={(e) => handleSubmit(e)}>
-      <div
-        className={`warning ${showWarningMain ? "active" : ""}`}
-        style={{
-          top: `${warningMain.top}px`,
-          left: `${warningMain.left}px`,
-        }}
-      >
-        <ImWarning />
-        <p>{warningMain.message || "completa este campo"}</p>
-      </div>
+      <Warning showWarning={showWarningMain} warningInfo={warningMain} />
       <label className="main__form__label">selecciona tu carrera:</label>
       <ComboBox
         items={careersList}
-        nameValue={careersPath}
+        itemsValue={careersPath}
         holder="Selecciona una carrera"
         cbRef={careerRef}
+        setValue={setSelectedCareer}
       />
       <label className="main__form__label">
         selecciona tu cantidad de materias:
       </label>
       <ComboBox
         items={numbersList}
-        nameValue={numbersList}
+        itemsValue={numbersList}
         holder="Selecciona la cantidad"
         cbRef={classesRef}
+        setValue={setSelectedNumSubjects}
       />
       <button type="submit" className="main__form__btn">
         comenzar
