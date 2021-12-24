@@ -1,3 +1,4 @@
+//----------------------Imports-------------------
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
@@ -5,7 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Calc from "./pages/Calc";
 import About from "./pages/About";
-import Error from "./pages/Error";
+import ErrorPage from "./pages/ErrorPage";
 import Contact from "./pages/Contact";
 
 //Components
@@ -30,7 +31,7 @@ function App() {
           <Contact />
         </Route>
         <Route path="*">
-          <Error />
+          <ErrorPage />
         </Route>
       </Switch>
       <Footer />
