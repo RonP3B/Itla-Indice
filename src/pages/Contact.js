@@ -1,17 +1,20 @@
+//----------------------------Imports----------------------------
 import React, { useRef } from "react";
+import Warning from "../components/Warning";
 import { useGlobalContext } from "../context";
-import { ImWarning } from "react-icons/im";
 import { validateEmail, setType, warningInfo } from "../files/functions";
 
+//----------------------------Component----------------------------
 const Contact = () => {
+  //----------------------------Hooks----------------------------
   const { showWarningContact, warningContact, showWarning } =
     useGlobalContext();
-
   const nameRef = useRef();
   const emailRef = useRef();
   const subjectRef = useRef();
   const messageRef = useRef();
 
+  //----------------------------Functions-------------------------------------
   const handleSubmit = (e) => {
     if (nameRef.current.value === "") setType("NAME", nameRef);
     else if (nameRef.current.value.length < 3) setType("NAME_LENGTH", nameRef);
@@ -26,6 +29,7 @@ const Contact = () => {
     showWarning(warningInfo, 1);
   };
 
+  //----------------------------Rendering return----------------------------
   return (
     <main className="contact">
       <section>
@@ -41,16 +45,10 @@ const Contact = () => {
           className="contact__form"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <div
-            className={`warning ${showWarningContact ? "active" : ""}`}
-            style={{
-              top: `${warningContact.top}px`,
-              left: `${warningContact.left}px`,
-            }}
-          >
-            <ImWarning />
-            <p>{warningContact.message || "completa este campo"}</p>
-          </div>
+          <Warning
+            showWarning={showWarningContact}
+            warningInfo={warningContact}
+          />
           <div className="contact__form__user-info">
             <input type="text" name="name" placeholder="nombre" ref={nameRef} />
             <input
