@@ -1,23 +1,21 @@
+//----------------------------Imports----------------------------
 import React, { useRef, useEffect, useState } from "react";
-import { useGlobalContext } from "../context";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { nanoid } from "nanoid";
 
-const ComboBox = ({ items, holder, nameValue, cbRef }) => {
-  const { height, setHeight, setSelectedCareer, setSelectedNumSubjects } =
-    useGlobalContext();
-
+//----------------------------Component----------------------------
+const ComboBox = ({ items, holder, itemsValue, cbRef, setValue }) => {
+  //----------------------------Hooks----------------------------
+  const [height, setHeight] = useState(0);
   const [showBox, setShowBox] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [filterOptions, setFilterOptions] = useState("");
   const searchBox = useRef();
 
+  //----------------------------Functions----------------------------
   const selectOption = (option, value) => {
     setSelectedOption(option);
-
-    if (isNaN(value)) setSelectedCareer(value);
-    else setSelectedNumSubjects(value);
-
+    setValue(value);
     setShowBox(false);
     setFilterOptions("");
   };
@@ -29,14 +27,21 @@ const ComboBox = ({ items, holder, nameValue, cbRef }) => {
       option.toString().toLowerCase().indexOf(filterOptions.trim()) !== -1
   );
 
+  //Focus on the text input
   if (showBox) searchBox.current.focus();
 
+  //useEffect that handles height size changes
   useEffect(() => {
-    const handleResize = (myRef) => setHeight(myRef.current.offsetHeight);
+    const cbCurr = cbRef.current;
+    const handleResize = (myRef) => setHeight(myRef.offsetHeight);
+    cbCurr.addEventListener("resize", handleResize(cbCurr));
 
-    cbRef.current.addEventListener("resize", handleResize(cbRef));
-  }, [setHeight, cbRef]);
+    return () => {
+      cbCurr.removeEventListener("resize", handleResize(cbCurr));
+    };
+  }, [cbRef, setHeight]);
 
+  //----------------------------Rendering return----------------------------
   return (
     <article className="main__form__box">
       <ul
@@ -48,7 +53,7 @@ const ComboBox = ({ items, holder, nameValue, cbRef }) => {
             return (
               <li
                 className="main__form__option"
-                onClick={() => selectOption(item, nameValue[index])}
+                onClick={() => selectOption(item, itemsValue[index])}
                 key={nanoid()}
               >
                 <input type="radio" />
