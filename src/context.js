@@ -1,20 +1,27 @@
+//----------------------------Imports-------------------------------
 import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useFetch } from "./useFetch";
+import { apiItla } from "./files/data";
 
-const apiItla = "https://nodejs-itlamaterias.herokuapp.com/carreras";
+//----------------------------App Context----------------------------
 const AppContext = React.createContext();
 
+//----------------------------Component------------------------------
 const AppProvider = ({ children }) => {
+  //----------------------------Hooks--------------------------------
   const [careers, setCareers] = useState("");
-  const [width, setWidth] = useState(window.innerWidth);
-  const [showModal, setShowModal] = useState(false);
+  const [average, setAverage] = useState(0);
   const [selectedCareer, setSelectedCareer] = useState("");
   const [selectedNumSubjects, setSelectedNumSubjects] = useState(0);
-  const [formErrMsg, setFormErrMsg] = useState("");
+  const [width, setWidth] = useState(window.innerWidth);
+  const [showModal, setShowModal] = useState(false);
   const [showWarningMain, setShowWarningMain] = useState(false);
   const [showWarningContact, setShowWarningContact] = useState(false);
-  const { data, loading } = useFetch(apiItla + careers);
-  const [height, setHeight] = useState(0);
+  const [showWarningCalc, setShowWarningCalc] = useState(false);
+  const history = useHistory();
+  const { data: dataCareers, loading: loadingCareers } = useFetch(apiItla);
+
   const [warningMain, setWarningMain] = useState({
     top: -500,
     left: 0,
@@ -25,9 +32,11 @@ const AppProvider = ({ children }) => {
     left: 0,
     message: "",
   });
-
-  const careersList = data.map((item) => item.career);
-  const careersPath = data.map((path) => path.path);
+  const [warningCalc, setWarningCalc] = useState({
+    top: -500,
+    left: 0,
+    message: "",
+  });
 
   useEffect(() => {
     window.addEventListener("resize", getWidth);
@@ -37,29 +46,44 @@ const AppProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    return history.listen((location) => {
+      if (location.pathname.length === 1) {
+        setSelectedCareer("");
+        setSelectedNumSubjects(0);
+        setAverage(0);
+      }
+    });
+  }, [history]);
+
+  useEffect(() => {
     const close = setTimeout(() => {
       setShowWarningMain(false);
       setShowWarningContact(false);
+      setShowWarningCalc(false);
     }, 2500);
 
     return () => {
       clearTimeout(close);
     };
-  }, [showWarningMain, showWarningContact]);
+  }, [showWarningMain, showWarningContact, showWarningCalc]);
 
   useEffect(() => {
     const hide = setTimeout(() => {
       setWarningContact({ ...warningContact, top: -500, left: 0, message: "" });
       setWarningMain({ ...warningMain, top: -500, left: 0, message: "" });
+      setWarningCalc({ ...warningCalc, top: -500, left: 0, message: "" });
     }, 3500);
 
     return () => {
       clearTimeout(hide);
     };
-  }, [warningContact, warningMain]);
+  }, [warningContact, warningMain, warningCalc]);
 
+  //----------------------------Functions----------------------------------------
   const getWidth = () => setWidth(window.innerWidth);
+
   const openModal = () => setShowModal(true);
+
   const closeModal = () => setShowModal(false);
 
   const showWarning = (position, page) => {
@@ -83,32 +107,43 @@ const AppProvider = ({ children }) => {
       });
       setShowWarningContact(true);
     }
+    if (page === 2) {
+      setWarningCalc({
+        ...warningCalc,
+        top,
+        left,
+        message,
+      });
+      setShowWarningCalc(true);
+    }
   };
 
+  //----------------------------Rendering return----------------------------
   return (
     <AppContext.Provider
       value={{
+        careers,
         width,
         showModal,
-        openModal,
-        closeModal,
-        data,
-        loading,
-        setSelectedCareer,
-        setSelectedNumSubjects,
+        dataCareers,
+        loadingCareers,
         selectedCareer,
         selectedNumSubjects,
-        formErrMsg,
-        setFormErrMsg,
-        careersList,
-        careersPath,
-        height,
-        setHeight,
         warningContact,
         warningMain,
-        showWarning,
+        warningCalc,
         showWarningMain,
         showWarningContact,
+        showWarningCalc,
+        history,
+        average,
+        openModal,
+        closeModal,
+        setSelectedCareer,
+        setSelectedNumSubjects,
+        setAverage,
+        setCareers,
+        showWarning,
       }}
     >
       {children}
