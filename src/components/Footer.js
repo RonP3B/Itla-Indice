@@ -1,10 +1,13 @@
+//----------------------------Imports----------------------------
 import React from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
 import { AiFillLinkedin } from "react-icons/ai";
 import { author } from "../files/data";
 
+//----------------------------Component----------------------------
 const Footer = () => {
+  //----------------------------Rendering return-------------------
   return (
     <footer className="footer">
       <p>creador - {author} - todos los derechos reservados ©</p>
