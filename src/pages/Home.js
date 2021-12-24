@@ -4,9 +4,9 @@ import { useGlobalContext } from "../context";
 import { IoMdSchool } from "react-icons/io";
 
 const Home = () => {
-  const { loading } = useGlobalContext();
+  const { loadingCareers } = useGlobalContext();
 
-  if (loading) {
+  if (loadingCareers) {
     return (
       <div className="loading">
         <IoMdSchool />
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <main className="main">
       <section>
-        <h4 className="main__title">¡calcularemos tu indice cuatrimestral!</h4>
+        <h4 className="main__title">¡calculáremos tu índice cuatrimestral!</h4>
         <CareersForm />
       </section>
     </main>
