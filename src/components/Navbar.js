@@ -1,3 +1,4 @@
+//----------------------------Imports----------------------------
 import React from "react";
 import logo from "../assets/icono.png";
 import { Link } from "react-router-dom";
@@ -7,9 +8,12 @@ import { RiCloseCircleFill } from "react-icons/ri";
 import { nanoid } from "nanoid";
 import { listItems } from "../files/data";
 
+//----------------------------Component----------------------------------
 const Navbar = () => {
+  //----------------------------Hooks------------------------------------
   const { width, showModal, openModal, closeModal } = useGlobalContext();
 
+  //----------------------------Functions--------------------------------
   const createList = () => {
     const newList = listItems.map((item) => {
       const { name, path } = item;
@@ -25,6 +29,7 @@ const Navbar = () => {
     return newList;
   };
 
+  //----------------------------Rendering return----------------------------
   return (
     <header>
       <nav className="navbar">
