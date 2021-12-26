@@ -4,18 +4,19 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { nanoid } from "nanoid";
 
 //----------------------------Component----------------------------
-const ComboBox = ({ items, holder, itemsValue, cbRef, setValue }) => {
-  //----------------------------Hooks----------------------------
+const ComboBox = ({ items, holder, itemsValue, cbRef, setValue = 0 }) => {
+  //----------------------------States and Refs----------------------------
   const [height, setHeight] = useState(0);
   const [showBox, setShowBox] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [filterOptions, setFilterOptions] = useState("");
-  const searchBox = useRef();
+  const container = useRef();
 
   //----------------------------Functions----------------------------
   const selectOption = (option, value) => {
+    if (setValue !== 0) setValue(value);
+
     setSelectedOption(option);
-    setValue(value);
     setShowBox(false);
     setFilterOptions("");
   };
@@ -27,8 +28,7 @@ const ComboBox = ({ items, holder, itemsValue, cbRef, setValue }) => {
       option.toString().toLowerCase().indexOf(filterOptions.trim()) !== -1
   );
 
-  //Focus on the text input
-  if (showBox) searchBox.current.focus();
+  //----------------------------useEffects----------------------------
 
   //useEffect that handles height size changes
   useEffect(() => {
@@ -41,9 +41,23 @@ const ComboBox = ({ items, holder, itemsValue, cbRef, setValue }) => {
     };
   }, [cbRef, setHeight]);
 
+  //useEffect that handles when the user clicks outside de comboBox
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (container.current && !container.current.contains(e.target))
+        setShowBox(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [container]);
+
   //----------------------------Rendering return----------------------------
   return (
-    <article className="main__form__box">
+    <article className="main__form__box" ref={container}>
       <ul
         className={`main__form__options ${showBox ? "active" : ""}`}
         style={{ top: `${height}px` }}
@@ -78,10 +92,6 @@ const ComboBox = ({ items, holder, itemsValue, cbRef, setValue }) => {
           value={filterOptions}
           onChange={(e) => setFilterOptions(e.target.value)}
           tabIndex="0"
-          ref={searchBox}
-          onBlur={() => {
-            setTimeout(() => [setShowBox(false), setFilterOptions("")], 100);
-          }}
         />
       </div>
     </article>
