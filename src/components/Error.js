@@ -11,7 +11,7 @@ const Error = ({ message }) => {
       <ImWarning className="error__logo" />
       <h4 className="error__title">{message}</h4>
       <Link to="/">
-        <button className="error__btn">volver al inicio</button>
+        <button>volver al inicio</button>
       </Link>
     </section>
   );
