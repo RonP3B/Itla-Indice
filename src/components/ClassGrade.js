@@ -1,12 +1,11 @@
 //----------------------------Imports-----------------------------
-import React, { useState } from "react";
+import React from "react";
 import Spinner from "./Spinner";
 import ComboBox from "./ComboBox";
 
 //----------------------------Component----------------------------
 const ClassGrade = ({ comboData, comboRef, spinnerRef }) => {
-  //----------------------------Hook and data----------------------
-  const [subject, setSubject] = useState("");
+  //----------------------------Data----------------------
   const classesList = comboData.map((item) => item.ASIGNATURA);
 
   //----------------------------Rendering return-------------------
@@ -21,7 +20,6 @@ const ClassGrade = ({ comboData, comboRef, spinnerRef }) => {
           itemsValue={classesList}
           holder="Selecciona la materia"
           cbRef={comboRef}
-          setValue={setSubject}
         />
         <Spinner spRef={spinnerRef} />
       </div>
