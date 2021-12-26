@@ -6,6 +6,15 @@
   padding: 1rem 0.5rem;
   min-height: calc(100vh - 70px);
 
+  a {
+    text-decoration: none;
+    width: 100%;
+
+    button {
+      min-width: 10rem;
+    }
+  }
+
   &__logo {
     font-size: 7rem;
     color: $darkBlue;

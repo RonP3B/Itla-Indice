@@ -370,7 +370,10 @@ ul {
 }
 
 button {
-  margin: 0 auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
   min-width: 9rem;
   width: 30%;
   background-color: var(--brightBlue);
@@ -389,6 +392,16 @@ button {
 }
 button:active {
   transform: scale(0.97);
+}
+@media screen and (min-width: 768px) {
+  button {
+    font-size: 1.1rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  button {
+    font-size: 1.2rem;
+  }
 }
 
 .loading {
@@ -473,6 +486,7 @@ header {
   color: var(--darkGreen);
   align-items: center;
   font-size: 1.15rem;
+  user-select: none;
 }
 .navbar__logo img {
   width: 4rem;
@@ -485,6 +499,9 @@ header {
 }
 .navbar__bars:hover {
   color: var(--darkBlue);
+}
+.navbar__list {
+  user-select: none;
 }
 .navbar__list a {
   color: var(--darkGreen);
@@ -760,9 +777,6 @@ header {
   .main__title {
     font-size: 1.6rem;
   }
-  .main button {
-    font-size: 1.1rem;
-  }
   .main__form {
     max-width: 900px;
     margin: 0 auto;
@@ -793,9 +807,6 @@ header {
   }
   .main__title {
     font-size: 2.3rem;
-  }
-  .main button {
-    font-size: 1.2rem;
   }
   .main__form {
     max-width: 1120px;
@@ -926,6 +937,9 @@ header {
     height: 10rem;
     margin-bottom: 0;
   }
+  .contact__form button {
+    margin-bottom: 0;
+  }
 }
 @media screen and (min-width: 1200px) {
   .contact {
@@ -959,6 +973,13 @@ header {
   align-items: center;
   padding: 1rem 0.5rem;
   min-height: calc(100vh - 70px);
+}
+.error a {
+  text-decoration: none;
+  width: 100%;
+}
+.error a button {
+  min-width: 10rem;
 }
 .error__logo {
   font-size: 7rem;
@@ -1058,6 +1079,38 @@ header {
   font-size: 1.3rem;
   margin: 1.5rem 0;
 }
+.calc__container {
+  width: 90vw;
+  height: 40vh;
+  min-height: 180px;
+  max-height: 280px;
+  background-color: var(--brightBlue);
+  border: 2px solid var(--darkBlue);
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  overflow: auto;
+  user-select: none;
+}
+.calc__container::-webkit-scrollbar {
+  width: 6px;
+  background-color: #29a7d1;
+}
+.calc__container::-webkit-scrollbar-thumb {
+  background-color: var(--darkGreen);
+  border-radius: 0 6px 6px 0;
+}
+.calc__container p {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--darkGreen);
+}
+.calc__container p::first-letter {
+  text-transform: uppercase;
+}
+.calc button {
+  min-width: 11rem;
+}
 .calc__form__article__title {
   font-size: 1rem;
   font-weight: 600;
@@ -1069,10 +1122,6 @@ header {
 .calc__form__article__container {
   display: flex;
   gap: 1rem;
-}
-.calc__form__btn {
-  display: block;
-  margin: 0.5rem auto;
 }
 @media screen and (min-width: 768px) {
   .calc {
@@ -1088,6 +1137,21 @@ header {
     display: grid;
     column-gap: 2rem;
   }
+  .calc__container {
+    margin: 0 auto 1rem auto;
+    width: 85vw;
+    min-height: 250px;
+    max-height: 320px;
+  }
+  .calc__container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .calc__container::-webkit-scrollbar-thumb {
+    border-radius: 0 8px 8px 0;
+  }
+  .calc__container p {
+    font-size: 1.15rem;
+  }
 }
 @media screen and (min-width: 1200px) {
   .calc {
@@ -1098,6 +1162,13 @@ header {
   }
   .calc__form__article__title {
     font-size: 1.3rem;
+  }
+  .calc__container {
+    width: 80vw;
+    max-width: 1120px;
+  }
+  .calc__container p {
+    font-size: 1.25rem;
   }
 }
 
