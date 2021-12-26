@@ -369,6 +369,11 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  color: var(--darkGreen);
+}
+
 button {
   display: block;
   margin-left: auto;
@@ -975,7 +980,6 @@ header {
   min-height: calc(100vh - 70px);
 }
 .error a {
-  text-decoration: none;
   width: 100%;
 }
 .error a button {
