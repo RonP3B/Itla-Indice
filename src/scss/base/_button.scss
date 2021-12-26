@@ -1,5 +1,8 @@
 button {
-  margin: 0 auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
   min-width: 9rem;
   width: 30%;
   background-color: $brightBlue;
@@ -18,5 +21,13 @@ button {
 
   &:active {
     transform: scale(0.97);
+  }
+
+  @include tablet {
+    font-size: 1.1rem;
+  }
+
+  @include desktop {
+    font-size: 1.2rem;
   }
 }
