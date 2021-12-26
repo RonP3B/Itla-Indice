@@ -1,4 +1,4 @@
-//----------------------------Imports----------------------------
+//----------------------------Imports------------------------------------
 import React, { useState, useEffect, createRef } from "react";
 import ClassGrade from "../components/ClassGrade";
 import Warning from "../components/Warning";
@@ -9,13 +9,13 @@ import { IoMdSchool } from "react-icons/io";
 import { useFetch } from "../useFetch";
 import { apiItla } from "../files/data";
 
-//----------------------------Ref arrays----------------------------
+//----------------------------Ref arrays---------------------------------
 const comboRefs = [];
 const spinnerRefs = [];
 
-//----------------------------Component----------------------------
+//----------------------------Component----------------------------------
 const Calc = () => {
-  //----------------------------Hooks----------------------------
+  //----------------------------Hooks------------------------------------
   const {
     careers,
     selectedNumSubjects,
@@ -25,9 +25,11 @@ const Calc = () => {
     setAverage,
     average,
     width,
+    history,
   } = useGlobalContext();
 
   const [columns, setColumns] = useState(0);
+  const [message, setMessage] = useState("");
 
   const { data: dataClasses, loading: loadingClasses } = useFetch(
     apiItla + careers
@@ -39,7 +41,18 @@ const Calc = () => {
     else if (width > 1199) setColumns(3);
   }, [selectedNumSubjects, width]);
 
-  //----------------------------Functions----------------------------
+  useEffect(() => {
+    let msg =
+      "El indíce que obtuviste en este cuatrimestre entra en la categoria de: ";
+
+    if (average >= 3.8) setMessage(`${msg} sobresaliente.`);
+    else if (average >= 3.5) setMessage(`${msg} muy bueno.`);
+    else if (average >= 3.2) setMessage(`${msg} bueno.`);
+    else if (average > 2.0) setMessage(`${msg} normal.`);
+    else setMessage(`${msg} debajo del requerimiento.`);
+  }, [average]);
+
+  //----------------------------Functions-------------------------------------------
   const validateForm = () => {
     const defaultSubject = "Selecciona la materia";
 
@@ -94,7 +107,19 @@ const Calc = () => {
   }
 
   if (average !== 0) {
-    return <h2>Resultado: {average} (metele un css kbrom)</h2>;
+    return (
+      <main className="calc">
+        <section>
+          <h2 className="calc__title">!indíce cuatrimestral obtenido!</h2>
+          <div className="calc__container">
+            <p>Obtuviste un indíce de {average} en este cuatrimestre</p>
+            <p>{message}</p>
+            <p>!sigue esforzandote!</p>
+          </div>
+          <button onClick={() => history.push("/")}>volver al inicio</button>
+        </section>
+      </main>
+    );
   }
 
   //----------------------------Rendering return----------------------------
@@ -122,9 +147,7 @@ const Calc = () => {
             );
           })}
         </form>
-        <button className="calc__form__btn" onClick={handleBtnEvent}>
-          calcular
-        </button>
+        <button onClick={handleBtnEvent}>calcular</button>
       </section>
     </main>
   );
