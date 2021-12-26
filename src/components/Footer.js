@@ -14,13 +14,31 @@ const Footer = () => {
       <p>contactos en:</p>
       <ul className="footer__social">
         <li>
-          <FaFacebookF className="footer__social__facebook" />
+          <a
+            href="https://es-la.facebook.com/roniell.perez.37"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF className="footer__social__facebook" />
+          </a>
         </li>
         <li>
-          <AiFillGithub className="footer__social__github" />
+          <a
+            href="https://github.com/RonP3B"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <AiFillGithub className="footer__social__github" />
+          </a>
         </li>
         <li>
-          <AiFillLinkedin className="footer__social__linkedin" />
+          <a
+            href="https://www.linkedin.com/in/roniell-p%C3%A9rez-967882229/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <AiFillLinkedin className="footer__social__linkedin" />
+          </a>
         </li>
       </ul>
     </footer>
