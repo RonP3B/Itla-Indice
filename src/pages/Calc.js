@@ -43,7 +43,7 @@ const Calc = () => {
 
   useEffect(() => {
     let msg =
-      "El indíce que obtuviste en este cuatrimestre entra en la categoria de: ";
+      "El índice que obtuviste en este cuatrimestre entra en la categoría de: ";
 
     if (average >= 3.8) setMessage(`${msg} sobresaliente.`);
     else if (average >= 3.5) setMessage(`${msg} muy bueno.`);
@@ -89,10 +89,6 @@ const Calc = () => {
     setAverage(parseFloat(points / credits).toFixed(1));
   };
 
-  const handleBtnEvent = () => {
-    if (validateForm()) getAverage();
-  };
-
   //----------------------------Conditional rendering returns----------------------------
   if (careers === "" || selectedNumSubjects === 0) {
     return <Error message={"debes seleccionar una carrera primero"} />;
@@ -114,7 +110,7 @@ const Calc = () => {
           <div className="calc__container">
             <p>Obtuviste un indíce de {average} en este cuatrimestre</p>
             <p>{message}</p>
-            <p>!sigue esforzandote!</p>
+            <p>!sigue esforzándote!</p>
           </div>
           <button onClick={() => history.push("/")}>volver al inicio</button>
         </section>
@@ -147,7 +143,13 @@ const Calc = () => {
             );
           })}
         </form>
-        <button onClick={handleBtnEvent}>calcular</button>
+        <button
+          onClick={() => {
+            if (validateForm()) getAverage();
+          }}
+        >
+          calcular
+        </button>
       </section>
     </main>
   );
