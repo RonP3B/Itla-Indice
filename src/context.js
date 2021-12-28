@@ -89,6 +89,9 @@ const AppProvider = ({ children }) => {
   const showWarning = (position, page) => {
     const { top, left, message } = position;
 
+    window.scrollTo({ top: top - 70, behavior: "smooth" });
+
+    //page 0 -> /
     if (page === 0) {
       setWarningMain({
         ...warningMain,
@@ -98,6 +101,7 @@ const AppProvider = ({ children }) => {
       });
       setShowWarningMain(true);
     }
+    //page 1 -> /contact
     if (page === 1) {
       setWarningContact({
         ...warningContact,
@@ -107,6 +111,7 @@ const AppProvider = ({ children }) => {
       });
       setShowWarningContact(true);
     }
+    //page 2 -> /calc
     if (page === 2) {
       setWarningCalc({
         ...warningCalc,
