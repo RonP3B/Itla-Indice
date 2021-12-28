@@ -35,7 +35,7 @@ const Navbar = () => {
       <nav className="navbar">
         <Link to="/" className="navbar__logo">
           <img src={logo} alt="logo" />
-          <p>ITLA-Indice</p>
+          <p>ITLA-Índice</p>
         </Link>
         <FaBars className="navbar__bars" onClick={openModal} />
         {width < 768 ? (

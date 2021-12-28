@@ -66,7 +66,7 @@ const Contact = () => {
             <input
               type="hidden"
               name="_next"
-              value="http://localhost:3000/contact"
+              value="https://itla-indice.netlify.app/contact"
             />
             <input type="hidden" name="_captcha" value="false" />
           </div>
