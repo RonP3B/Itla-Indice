@@ -15,30 +15,11 @@ const AppProvider = ({ children }) => {
   const [selectedCareer, setSelectedCareer] = useState("");
   const [selectedNumSubjects, setSelectedNumSubjects] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
-  const [showModal, setShowModal] = useState(false);
-  const [showWarningMain, setShowWarningMain] = useState(false);
-  const [showWarningContact, setShowWarningContact] = useState(false);
-  const [showWarningCalc, setShowWarningCalc] = useState(false);
   const history = useHistory();
   const { data: dataCareers, loading: loadingCareers } = useFetch(apiItla);
 
-  const [warningMain, setWarningMain] = useState({
-    top: -500,
-    left: 0,
-    message: "",
-  });
-  const [warningContact, setWarningContact] = useState({
-    top: -500,
-    left: 0,
-    message: "",
-  });
-  const [warningCalc, setWarningCalc] = useState({
-    top: -500,
-    left: 0,
-    message: "",
-  });
-
   useEffect(() => {
+    const getWidth = () => setWidth(window.innerWidth);
     window.addEventListener("resize", getWidth);
     return () => {
       window.removeEventListener("resize", getWidth);
@@ -55,100 +36,22 @@ const AppProvider = ({ children }) => {
     });
   }, [history]);
 
-  useEffect(() => {
-    const close = setTimeout(() => {
-      setShowWarningMain(false);
-      setShowWarningContact(false);
-      setShowWarningCalc(false);
-    }, 2500);
-
-    return () => {
-      clearTimeout(close);
-    };
-  }, [showWarningMain, showWarningContact, showWarningCalc]);
-
-  useEffect(() => {
-    const hide = setTimeout(() => {
-      setWarningContact({ ...warningContact, top: -500, left: 0, message: "" });
-      setWarningMain({ ...warningMain, top: -500, left: 0, message: "" });
-      setWarningCalc({ ...warningCalc, top: -500, left: 0, message: "" });
-    }, 3500);
-
-    return () => {
-      clearTimeout(hide);
-    };
-  }, [warningContact, warningMain, warningCalc]);
-
-  //----------------------------Functions----------------------------------------
-  const getWidth = () => setWidth(window.innerWidth);
-
-  const openModal = () => setShowModal(true);
-
-  const closeModal = () => setShowModal(false);
-
-  const showWarning = (position, page) => {
-    const { top, left, message } = position;
-
-    window.scrollTo({ top: top - 70, behavior: "smooth" });
-
-    //page 0 -> /
-    if (page === 0) {
-      setWarningMain({
-        ...warningMain,
-        top,
-        left,
-        message,
-      });
-      setShowWarningMain(true);
-    }
-    //page 1 -> /contact
-    if (page === 1) {
-      setWarningContact({
-        ...warningContact,
-        top,
-        left,
-        message,
-      });
-      setShowWarningContact(true);
-    }
-    //page 2 -> /calc
-    if (page === 2) {
-      setWarningCalc({
-        ...warningCalc,
-        top,
-        left,
-        message,
-      });
-      setShowWarningCalc(true);
-    }
-  };
-
   //----------------------------Rendering return----------------------------
   return (
     <AppContext.Provider
       value={{
         careers,
         width,
-        showModal,
         dataCareers,
         loadingCareers,
         selectedCareer,
         selectedNumSubjects,
-        warningContact,
-        warningMain,
-        warningCalc,
-        showWarningMain,
-        showWarningContact,
-        showWarningCalc,
         history,
         average,
-        openModal,
-        closeModal,
         setSelectedCareer,
         setSelectedNumSubjects,
         setAverage,
         setCareers,
-        showWarning,
       }}
     >
       {children}
