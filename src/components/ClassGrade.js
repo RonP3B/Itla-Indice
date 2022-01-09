@@ -17,7 +17,6 @@ const ClassGrade = ({ comboData, comboRef, spinnerRef }) => {
       <div className="calc__form__article__container">
         <ComboBox
           items={classesList}
-          itemsValue={classesList}
           holder="Selecciona la materia"
           cbRef={comboRef}
         />
