@@ -1,10 +1,11 @@
 //----------------------------Imports----------------------------
-import React, { createRef } from "react";
+import React, { createRef, useEffect, useReducer, useState } from "react";
 import ComboBox from "./ComboBox";
 import Warning from "./Warning";
 import { useGlobalContext } from "../context";
 import { getWarningInfo } from "../files/functions";
 import { numbersList } from "../files/data";
+import { reducer, defaultWarning } from "../reducer";
 
 //----------------------------Component----------------------------
 const CareersForm = () => {
@@ -15,33 +16,63 @@ const CareersForm = () => {
     selectedCareer,
     setSelectedCareer,
     setSelectedNumSubjects,
-    showWarningMain,
-    warningMain,
-    showWarning,
     setCareers,
     history,
   } = useGlobalContext();
 
+  const [warning, warningDispatch] = useReducer(reducer, defaultWarning);
+  const [showWarning, setShowWarning] = useState(false);
   const careerRef = createRef();
   const classesRef = createRef();
 
+  useEffect(() => {
+    const close = setTimeout(() => {
+      setShowWarning(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(close);
+    };
+  }, [showWarning]);
+
+  useEffect(() => {
+    const hide = setTimeout(() => {
+      warningDispatch({ type: "RESET_WARNING_INFO" });
+    }, 3500);
+
+    return () => {
+      clearTimeout(hide);
+    };
+  }, [warning]);
+
   //----------------------------Data----------------------------
   const careersList = dataCareers.map((item) => item.career);
-  const careersPath = dataCareers.map((path) => path.path);
 
   //----------------------------Functions----------------------------
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (selectedCareer === "") {
-      showWarning(getWarningInfo(careerRef, "selecciona una carrera"), 0);
+      setShowWarning(true);
+      warningDispatch({
+        type: "SET_WARNING_INFO",
+        payload: getWarningInfo(careerRef, "selecciona una carrera"),
+      });
     } else if (selectedNumSubjects === 0) {
-      showWarning(
-        getWarningInfo(classesRef, "selecciona la cantidad de materias"),
-        0
-      );
+      setShowWarning(true);
+      warningDispatch({
+        type: "SET_WARNING_INFO",
+        payload: getWarningInfo(
+          classesRef,
+          "selecciona la cantidad de materias"
+        ),
+      });
     } else {
-      setCareers(selectedCareer);
+      const careerPath = dataCareers.filter(
+        (item) => item.career === selectedCareer
+      )[0].path;
+      setCareers(careerPath);
       history.push("/calc");
     }
   };
@@ -49,11 +80,10 @@ const CareersForm = () => {
   //----------------------------Rendering return----------------------------
   return (
     <form className="main__form" onSubmit={(e) => handleSubmit(e)}>
-      <Warning showWarning={showWarningMain} warningInfo={warningMain} />
+      <Warning showWarning={showWarning} warningInfo={warning} />
       <label className="main__form__label">selecciona tu carrera:</label>
       <ComboBox
         items={careersList}
-        itemsValue={careersPath}
         holder="Selecciona una carrera"
         cbRef={careerRef}
         setValue={setSelectedCareer}
@@ -63,7 +93,6 @@ const CareersForm = () => {
       </label>
       <ComboBox
         items={numbersList}
-        itemsValue={numbersList}
         holder="Selecciona la cantidad"
         cbRef={classesRef}
         setValue={setSelectedNumSubjects}

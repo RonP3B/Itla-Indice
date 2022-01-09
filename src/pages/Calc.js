@@ -1,5 +1,5 @@
 //----------------------------Imports------------------------------------
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useReducer } from "react";
 import ClassGrade from "../components/ClassGrade";
 import Warning from "../components/Warning";
 import Error from "../components/Error";
@@ -8,6 +8,7 @@ import { useGlobalContext } from "../context";
 import { IoMdSchool } from "react-icons/io";
 import { useFetch } from "../useFetch";
 import { apiItla } from "../files/data";
+import { reducer, defaultWarning } from "../reducer";
 
 //----------------------------Ref arrays---------------------------------
 const comboRefs = [];
@@ -16,24 +17,35 @@ const spinnerRefs = [];
 //----------------------------Component----------------------------------
 const Calc = () => {
   //----------------------------Hooks------------------------------------
-  const {
-    careers,
-    selectedNumSubjects,
-    showWarningCalc,
-    warningCalc,
-    showWarning,
-    setAverage,
-    average,
-    width,
-    history,
-  } = useGlobalContext();
-
+  const { careers, selectedNumSubjects, setAverage, average, width, history } =
+    useGlobalContext();
+  const [warning, warningDispatch] = useReducer(reducer, defaultWarning);
+  const [showWarning, setShowWarning] = useState(false);
   const [columns, setColumns] = useState(0);
   const [message, setMessage] = useState("");
-
   const { data: dataClasses, loading: loadingClasses } = useFetch(
     apiItla + careers
   );
+
+  useEffect(() => {
+    const close = setTimeout(() => {
+      setShowWarning(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(close);
+    };
+  }, [showWarning]);
+
+  useEffect(() => {
+    const hide = setTimeout(() => {
+      warningDispatch({ type: "RESET_WARNING_INFO" });
+    }, 3500);
+
+    return () => {
+      clearTimeout(hide);
+    };
+  }, [warning]);
 
   useEffect(() => {
     if (selectedNumSubjects < 4) setColumns(0);
@@ -60,7 +72,11 @@ const Calc = () => {
       const selectedSubject = comboRefs[i].current.textContent;
 
       if (selectedSubject === defaultSubject) {
-        showWarning(getWarningInfo(comboRefs[i], "selecciona una materia"), 2);
+        setShowWarning(true);
+        warningDispatch({
+          type: "SET_WARNING_INFO",
+          payload: getWarningInfo(comboRefs[i], "selecciona una materia"),
+        });
         return false;
       }
     }
@@ -106,9 +122,9 @@ const Calc = () => {
     return (
       <main className="calc">
         <section>
-          <h2 className="calc__title">!indíce cuatrimestral obtenido!</h2>
+          <h2 className="calc__title">!índice cuatrimestral obtenido!</h2>
           <div className="calc__container">
-            <p>Obtuviste un indíce de {average} en este cuatrimestre</p>
+            <p>Obtuviste un índice de {average} en este cuatrimestre</p>
             <p>{message}</p>
             <p>!sigue esforzándote!</p>
           </div>
@@ -129,7 +145,7 @@ const Calc = () => {
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
           }}
         >
-          <Warning showWarning={showWarningCalc} warningInfo={warningCalc} />
+          <Warning showWarning={showWarning} warningInfo={warning} />
           {[...Array(selectedNumSubjects)].map((item, index) => {
             comboRefs.push(createRef());
             spinnerRefs.push(createRef());

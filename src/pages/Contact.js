@@ -1,18 +1,38 @@
 //----------------------------Imports----------------------------
-import React, { useRef } from "react";
+import React, { useRef, useReducer, useEffect, useState } from "react";
 import Warning from "../components/Warning";
-import { useGlobalContext } from "../context";
 import { validateEmail, setType, warningInfo } from "../files/functions";
+import { reducer, defaultWarning } from "../reducer";
 
 //----------------------------Component----------------------------
 const Contact = () => {
   //----------------------------Hooks----------------------------
-  const { showWarningContact, warningContact, showWarning } =
-    useGlobalContext();
+  const [warning, warningDispatch] = useReducer(reducer, defaultWarning);
+  const [showWarning, setShowWarning] = useState(false);
   const nameRef = useRef();
   const emailRef = useRef();
   const subjectRef = useRef();
   const messageRef = useRef();
+
+  useEffect(() => {
+    const close = setTimeout(() => {
+      setShowWarning(false);
+    }, 2500);
+
+    return () => {
+      clearTimeout(close);
+    };
+  }, [showWarning]);
+
+  useEffect(() => {
+    const hide = setTimeout(() => {
+      warningDispatch({ type: "RESET_WARNING_INFO" });
+    }, 3500);
+
+    return () => {
+      clearTimeout(hide);
+    };
+  }, [warning]);
 
   //----------------------------Functions-------------------------------------
   const handleSubmit = (e) => {
@@ -26,7 +46,8 @@ const Contact = () => {
     else return;
 
     e.preventDefault();
-    showWarning(warningInfo, 1);
+    setShowWarning(true);
+    warningDispatch({ type: "SET_WARNING_INFO", payload: warningInfo });
   };
 
   //----------------------------Rendering return----------------------------
@@ -45,10 +66,7 @@ const Contact = () => {
           className="contact__form"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <Warning
-            showWarning={showWarningContact}
-            warningInfo={warningContact}
-          />
+          <Warning showWarning={showWarning} warningInfo={warning} />
           <div className="contact__form__user-info">
             <input type="text" name="name" placeholder="nombre" ref={nameRef} />
             <input
