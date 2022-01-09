@@ -1,5 +1,5 @@
 //----------------------------Imports----------------------------
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import logo from "../assets/icono.png";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
@@ -11,7 +11,22 @@ import { listItems } from "../files/data";
 //----------------------------Component----------------------------------
 const Navbar = () => {
   //----------------------------Hooks------------------------------------
-  const { width, showModal, openModal, closeModal } = useGlobalContext();
+  const { width } = useGlobalContext();
+  const [showModal, setShowModal] = React.useState(false);
+  const container = useRef();
+
+  useEffect(() => {
+    const closeModal = () => setShowModal(false);
+    const handleClickOutside = (e) => {
+      if (container.current && !container.current.contains(e.target))
+        closeModal();
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [container]);
 
   //----------------------------Functions--------------------------------
   const createList = () => {
@@ -19,7 +34,7 @@ const Navbar = () => {
       const { name, path } = item;
       return (
         <li key={nanoid()}>
-          <Link to={path} onClick={closeModal}>
+          <Link to={path} onClick={() => setShowModal(false)}>
             {name}
           </Link>
         </li>
@@ -37,7 +52,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" />
           <p>ITLA-Índice</p>
         </Link>
-        <FaBars className="navbar__bars" onClick={openModal} />
+        <FaBars className="navbar__bars" onClick={() => setShowModal(true)} />
         {width < 768 ? (
           <article
             className="navbar__overlay"
@@ -45,12 +60,13 @@ const Navbar = () => {
           >
             <div
               className={`navbar__modal ${
-                showModal ? null : "navbar__modal-close"
+                showModal ? "" : "navbar__modal-close"
               }`}
+              ref={container}
             >
               <img src={logo} alt="logo" />
               <ul className="navbar__list">{createList()}</ul>
-              <RiCloseCircleFill onClick={closeModal} />
+              <RiCloseCircleFill onClick={() => setShowModal(false)} />
             </div>
           </article>
         ) : (
