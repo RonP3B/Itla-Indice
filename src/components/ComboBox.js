@@ -4,7 +4,7 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { nanoid } from "nanoid";
 
 //----------------------------Component----------------------------
-const ComboBox = ({ items, holder, itemsValue, cbRef, setValue = 0 }) => {
+const ComboBox = ({ items, holder, cbRef, setValue = 0 }) => {
   //----------------------------States and Refs----------------------------
   const [height, setHeight] = useState(0);
   const [showBox, setShowBox] = useState(false);
@@ -13,9 +13,8 @@ const ComboBox = ({ items, holder, itemsValue, cbRef, setValue = 0 }) => {
   const container = useRef();
 
   //----------------------------Functions----------------------------
-  const selectOption = (option, value) => {
-    if (setValue !== 0) setValue(value);
-
+  const selectOption = (option) => {
+    if (setValue !== 0) setValue(option);
     setSelectedOption(option);
     setShowBox(false);
     setFilterOptions("");
@@ -67,11 +66,12 @@ const ComboBox = ({ items, holder, itemsValue, cbRef, setValue = 0 }) => {
             return (
               <li
                 className="main__form__option"
-                onClick={() => selectOption(item, itemsValue[index])}
+                onClick={() => selectOption(item)}
                 key={nanoid()}
               >
-                <input type="radio" />
-                <label>{item}</label>
+                <label>
+                  {item} <input type="radio" />
+                </label>
               </li>
             );
           }
