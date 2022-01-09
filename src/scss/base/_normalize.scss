@@ -10,16 +10,32 @@
 
 *,
 *::before,
-*::after{
+*::after {
   box-sizing: border-box;
 }
 
 html {
   line-height: 1.15; /* 1 */
+  text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; /* 2 */
+
+  scrollbar-width: thin;
+  scrollbar-color: $darkGreen rgba(98, 177, 181, 0.73);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    background: rgba(98, 177, 181, 0.73);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $darkGreen;
+    border-radius: 0 8px 8px 0;
+  }
 }
 
-img{
+img {
   max-width: 100%;
 }
 
@@ -184,7 +200,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -194,7 +211,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 

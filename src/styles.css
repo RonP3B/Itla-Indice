@@ -30,8 +30,21 @@ body {
 html {
   line-height: 1.15;
   /* 1 */
+  text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   /* 2 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--darkGreen) rgba(98, 177, 181, 0.73);
+}
+html::-webkit-scrollbar {
+  width: 6px;
+  background: rgba(98, 177, 181, 0.73);
+}
+html::-webkit-scrollbar-thumb {
+  background-color: var(--darkGreen);
+  border-radius: 0 8px 8px 0;
 }
 
 img {
@@ -410,7 +423,7 @@ button:active {
 }
 
 .loading {
-  height: 85vh;
+  min-height: calc(100vh - 186.63px);
   width: 100%;
   display: grid;
   place-items: center;
@@ -423,6 +436,16 @@ button:active {
 @keyframes loading {
   0% {
     transform: rotate(-360deg);
+  }
+}
+@media screen and (min-width: 768px) {
+  .loading {
+    min-height: calc(100vh - 185px);
+  }
+}
+@media screen and (min-width: 1200px) {
+  .loading {
+    min-height: calc(100vh - 209px);
   }
 }
 
@@ -695,6 +718,8 @@ header {
   border: 1px solid var(--darkBlue);
   top: 2.34rem;
   position: absolute;
+  scrollbar-width: thin;
+  scrollbar-color: var(--darkGreen) #29a7d1;
 }
 .main__form__options::-webkit-scrollbar {
   width: 8px;

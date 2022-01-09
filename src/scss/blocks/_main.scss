@@ -70,6 +70,8 @@
       border: 1px solid $darkBlue;
       top: 2.34rem;
       position: absolute;
+      scrollbar-width: thin;
+      scrollbar-color: $darkGreen rgb(41, 167, 209);
 
       &::-webkit-scrollbar {
         width: 8px;
