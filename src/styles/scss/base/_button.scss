@@ -1,0 +1,33 @@
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  min-width: 9rem;
+  width: 30%;
+  background-color: $brightBlue;
+  color: $darkGreen;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.275rem 0.313rem;
+  border-radius: 5px;
+  border: 1.5px solid $darkBlue;
+  cursor: pointer;
+  transition: transform 0.1s linear;
+  max-width: 210px;
+  letter-spacing: 0.05rem;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  @include tablet {
+    font-size: 1.1rem;
+  }
+
+  @include desktop {
+    font-size: 1.2rem;
+  }
+}

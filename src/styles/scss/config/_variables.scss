@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Knewave&display=swap");
+
+:root {
+  --darkBlue: rgba(51, 103, 203, 0.6);
+  --brightBlue: rgb(51, 190, 230);
+  --darkGreen: rgb(0, 102, 51);
+}
+
+$darkBlue: var(--darkBlue);
+$brightBlue: var(--brightBlue);
+$darkGreen: var(--darkGreen);
+$logoFont: "Knewave", cursive;
+$mainFont: "Baloo 2", cursive;
+$mainFontRegular: 400;
+$mainFontBold: 700;
+$tablet: 768px;
+$desktop: 1200px;

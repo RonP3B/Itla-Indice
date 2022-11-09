@@ -1,0 +1,161 @@
+.contact {
+  min-height: calc(100vh - 186.63px);
+  padding: 1rem 0.75rem;
+  display: grid;
+  place-items: center;
+
+  &__title {
+    text-align: center;
+
+    h2 {
+      text-transform: capitalize;
+      color: $darkGreen;
+      letter-spacing: 0.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    div {
+      margin: auto;
+      height: 0.185rem;
+      width: 7.5rem;
+      background-color: $darkBlue;
+    }
+
+    p {
+      color: $darkGreen;
+      font-weight: $mainFontBold;
+      text-transform: capitalize;
+    }
+  }
+
+  &__form {
+    max-width: 550px;
+    margin: 2rem auto;
+
+    input,
+    textarea {
+      background-color: $brightBlue;
+      border: 1.5px solid $darkBlue;
+      padding: 0.35rem 0.45rem;
+      color: $darkGreen;
+      font-weight: $mainFontBold;
+      font-size: 0.935rem;
+      outline: none;
+      border-radius: 0.25rem;
+
+      &::placeholder {
+        color: $darkGreen;
+        opacity: 0.65;
+        text-transform: capitalize;
+      }
+    }
+
+    input {
+      margin-bottom: 0.55rem;
+      width: 100%;
+    }
+
+    textarea {
+      resize: none;
+      margin-bottom: 0.55rem;
+      width: 100%;
+      height: 6rem;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        background-color: rgb(41, 167, 209);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $darkGreen;
+        border-radius: 0 8px 8px 0;
+      }
+    }
+
+    button {
+      min-width: 100%;
+      text-align: center;
+    }
+  }
+
+  @include tablet {
+    min-height: calc(100vh - 185px);
+
+    &__title {
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      div {
+        height: 0.2rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    &__form {
+      display: grid;
+      grid-template-rows: 13% 65% 13%;
+      row-gap: 0.55rem;
+      width: 90vw;
+      max-width: 1440px;
+
+      &__user-info {
+        display: flex;
+        justify-content: space-between;
+
+        input {
+          width: calc((100% / 3) - 7px);
+          font-size: 1.02rem;
+          height: 100%;
+          margin-bottom: 0;
+        }
+      }
+
+      textarea {
+        font-size: 1.02rem;
+        height: 10rem;
+        margin-bottom: 0;
+      }
+
+      button {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include desktop {
+    min-height: calc(100vh - 209px);
+
+    &__title {
+      h2 {
+        font-size: 2.4rem;
+      }
+
+      div {
+        height: 0.3rem;
+        width: 7.6rem;
+      }
+
+      p {
+        font-size: 1.4rem;
+      }
+    }
+
+    &__form {
+      grid-template-rows: 16% 65% 16%;
+
+      &__user-info {
+        input {
+          font-size: 1.1rem;
+        }
+      }
+
+      textarea {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

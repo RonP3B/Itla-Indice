@@ -1,0 +1,260 @@
+.main {
+  padding: 0.5rem 0.75rem;
+  min-height: calc(100vh - 186.63px);
+
+  display: grid;
+  place-items: center;
+
+  section {
+    width: 80vw;
+  }
+
+  &__title {
+    text-transform: capitalize;
+    color: $darkGreen;
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 1.5rem 0;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    min-height: 15rem;
+    justify-content: center;
+
+    &__label {
+      color: $darkGreen;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: capitalize;
+      margin-bottom: 0.3rem;
+    }
+
+    &__cb {
+      margin-bottom: 2.5rem;
+      background-color: $brightBlue;
+      color: $darkGreen;
+      font-weight: 500;
+      padding: 0 0.3rem;
+      border-radius: 5px;
+      border: 1.5px solid $darkBlue;
+      outline: none;
+
+      option {
+        font-weight: 600;
+      }
+    }
+
+    &__box {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-bottom: 2rem;
+      width: 100%;
+      user-select: none;
+    }
+
+    &__options {
+      background-color: $brightBlue;
+      color: $darkGreen;
+      font-weight: 500;
+      max-height: 0;
+      opacity: 0;
+      width: 100%;
+      transition: all 0.25s;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      order: 1;
+      border: 1px solid $darkBlue;
+      top: 2.34rem;
+      position: absolute;
+      scrollbar-width: thin;
+      scrollbar-color: $darkGreen rgb(41, 167, 209);
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        background-color: rgb(41, 167, 209);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $darkGreen;
+        border-radius: 0 8px 8px 0;
+      }
+    }
+
+    &__options.active {
+      max-height: 10.2rem;
+      opacity: 1;
+      z-index: 1;
+      overflow-y: scroll;
+      margin-top: 2.14rem;
+    }
+
+    &__selected {
+      background-color: $brightBlue;
+      border: 1px solid $darkBlue;
+      border-radius: 5px;
+      margin-bottom: 0.75rem;
+      color: $darkGreen;
+      font-weight: 500;
+      position: relative;
+      order: 0;
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        margin: 0;
+      }
+
+      svg {
+        font-size: 1.3rem;
+      }
+    }
+
+    &__options.active + &__selected svg {
+      transform: rotateX(180deg);
+    }
+
+    &__option,
+    &__selected {
+      padding: 0.4rem;
+      cursor: pointer;
+      align-items: center;
+    }
+
+    &__option {
+      width: 100%;
+      label {
+        cursor: pointer;
+      }
+
+      input {
+        display: none;
+      }
+
+      &:hover {
+        background-color: $darkBlue;
+      }
+    }
+
+    &__search-box {
+      margin-top: -0.622rem;
+      input {
+        background-color: rgb(41, 167, 209);
+        color: $darkGreen;
+        font-weight: 600;
+        width: 100%;
+        padding: 0.4rem;
+        outline: none;
+        font-size: 0.955rem;
+        position: absolute;
+        border-radius: 5px 5px 0 0;
+        border: $darkBlue solid 1px;
+        z-index: 2;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.25s;
+        &::placeholder {
+          color: $darkGreen;
+        }
+      }
+    }
+
+    &__options.active ~ &__search-box input {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @include tablet {
+    min-height: calc(100vh - 185px);
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__form {
+      max-width: 900px;
+      margin: 0 auto;
+
+      &__label {
+        font-size: 1.2rem;
+      }
+
+      &__option,
+      &__selected {
+        padding: 0.42rem;
+      }
+
+      &__selected {
+        p {
+          margin: 0;
+          font-size: 1.1rem;
+        }
+
+        svg {
+          font-size: 1.4rem;
+        }
+      }
+
+      &__options {
+        label {
+          font-size: 1.1rem;
+        }
+      }
+
+      &__search-box {
+        input {
+          font-size: 1.05rem;
+        }
+      }
+    }
+  }
+
+  @include desktop {
+    min-height: calc(100vh - 209px);
+
+    &__title {
+      font-size: 2.3rem;
+    }
+
+    &__form {
+      max-width: 1120px;
+      margin: 0 auto;
+
+      &__label {
+        font-size: 1.4rem;
+      }
+
+      &__option,
+      &__selected {
+        padding: 0.5rem;
+      }
+
+      &__selected {
+        p {
+          margin: 0;
+          font-size: 1.3rem;
+        }
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+
+      &__options {
+        label {
+          font-size: 1.3rem;
+        }
+      }
+
+      &__search-box {
+        input {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}

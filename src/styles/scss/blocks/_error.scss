@@ -1,0 +1,48 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  min-height: calc(100vh - 70px);
+
+  a {
+    width: 100%;
+
+    button {
+      min-width: 10rem;
+    }
+  }
+
+  &__logo {
+    font-size: 7rem;
+    color: $darkBlue;
+  }
+
+  &__title {
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    color: $darkGreen;
+    text-align: center;
+    margin: 1rem 0 1rem 0;
+  }
+
+  @include tablet {
+    min-height: calc(100vh - 185px);
+    &__logo {
+      font-size: 9rem;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+
+  @include desktop {
+    min-height: calc(100vh - 209px);
+
+    &__title {
+      font-size: 1.75rem;
+    }
+  }
+}

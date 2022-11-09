@@ -1,0 +1,26 @@
+.loading {
+  min-height: calc(100vh - 186.63px);
+  width: 100%;
+  display: grid;
+  place-items: center;
+
+  svg {
+    color: $darkBlue;
+    font-size: 7.5rem;
+    animation: loading 0.8s infinite linear;
+
+    @keyframes loading {
+      0% {
+        transform: rotate(-360deg);
+      }
+    }
+  }
+
+  @include tablet {
+    min-height: calc(100vh - 185px);
+  }
+
+  @include desktop {
+    min-height: calc(100vh - 209px);
+  }
+}

@@ -1,0 +1,141 @@
+.calc {
+  padding: 0.5rem 0.75rem;
+  min-height: calc(100vh - 188.2px);
+
+  display: grid;
+  place-items: center;
+
+  section {
+    width: 90vw;
+  }
+
+  &__title {
+    text-transform: capitalize;
+    color: $darkGreen;
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 1.5rem 0;
+  }
+
+  &__container {
+    width: 90vw;
+    height: 40vh;
+    min-height: 180px;
+    max-height: 280px;
+    background-color: $brightBlue;
+    border: 2px solid $darkBlue;
+    padding: 0.35rem 0.45rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    overflow: auto;
+    user-select: none;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: rgb(41, 167, 209);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $darkGreen;
+      border-radius: 0 6px 6px 0;
+    }
+
+    p {
+      font-weight: $mainFontBold;
+      font-size: 1.05rem;
+      color: $darkGreen;
+
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  button {
+    min-width: 11rem;
+  }
+
+  &__form {
+    &__article {
+      &__title {
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        margin-top: 0;
+        margin-bottom: 0.3rem;
+        color: $darkGreen;
+      }
+
+      &__container {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+  }
+
+  @include tablet {
+    min-height: calc(100vh - 185px);
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__form {
+      &__article {
+        &__title {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    &__form.active {
+      display: grid;
+      column-gap: 2rem;
+    }
+
+    &__container {
+      margin: 0 auto 1rem auto;
+      width: 85vw;
+      min-height: 250px;
+      max-height: 320px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 0 8px 8px 0;
+      }
+
+      p {
+        font-size: 1.15rem;
+      }
+    }
+  }
+
+  @include desktop {
+    min-height: calc(100vh - 209px);
+
+    &__title {
+      font-size: 2.3rem;
+    }
+
+    &__form {
+      &__article {
+        &__title {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    &__container {
+      width: 80vw;
+      max-width: 1120px;
+
+      p {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}

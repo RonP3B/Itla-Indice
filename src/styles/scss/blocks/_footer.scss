@@ -1,0 +1,67 @@
+.footer {
+  border-top: $darkGreen solid 1px;
+  padding: 0.4rem 0.8rem;
+  text-align: center;
+  text-transform: capitalize;
+  color: $darkGreen;
+
+  p {
+    font-weight: 600;
+    margin: 0.355rem 0 0 0;
+  }
+
+  &__social {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.75rem;
+
+    &__facebook,
+    &__github,
+    &__linkedin {
+      cursor: pointer;
+      margin-right: 0.45rem;
+      transition: color 0.25s linear;
+      font-size: 1.5rem;
+    }
+
+    &__facebook:hover {
+      color: #2d88ff;
+    }
+
+    &__github:hover {
+      color: #000000;
+    }
+
+    &__linkedin:hover {
+      color: #0073b1;
+    }
+  }
+
+  @include tablet {
+    p {
+      font-size: 1.2rem;
+    }
+
+    &__social {
+      &__facebook,
+      &__github,
+      &__linkedin {
+        font-size: 1.7rem;
+      }
+    }
+  }
+
+  @include desktop {
+    p {
+      font-size: 1.4rem;
+    }
+
+    &__social {
+      &__facebook,
+      &__github,
+      &__linkedin {
+        font-size: 1.9rem;
+      }
+    }
+  }
+}
